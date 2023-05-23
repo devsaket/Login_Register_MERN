@@ -25,8 +25,7 @@ app.use(bodyparser.urlencoded({ extended: true }))
 connectDB();
 
 // Routes 
-
-
+app.use('/',require('./server/routes/userroutes'))
 
 app.listen(PORT, () =>{
     console.log(`Server is Running at http://localhost:${PORT}`)
