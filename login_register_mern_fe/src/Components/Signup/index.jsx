@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import './style.scss'
 import Home from '../Home'
 import { useNavigate } from 'react-router-dom'
+import Axios from 'axios'
 
 const SignUp = () => {
   let navigate = useNavigate();
@@ -17,13 +18,14 @@ const SignUp = () => {
     console.log(formValues);
 
     const fvalues = {email: formValues.email, password: formValues.password}
+    console.log(fvalues)
 
-    // Axios.post("http://localhost:5000/api/customers", fvalues).then(() => {
-    //     alert('Customer Added Successfully!');
-    //     navigate('/admin/customer')
-    // }).catch(() => {
-    //     alert('Something Went Wrong!');
-    // })
+    Axios.post("http://localhost:5000/api/users", fvalues).then(() => {
+        alert('User Registered Successfully!');
+        navigate('/login')
+    }).catch(() => {
+        alert('Something Went Wrong!');
+    })
 
   };
 
