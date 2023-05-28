@@ -8,11 +8,11 @@ const controller = require('../controller/usercontroller')
 
 router.get('/', homeRoute)
 
-router.post('/addCustomer', addUserRoute)
+// router.post('/addUser', addUserRoute)
 
 // API Paths
-router.post('/api/users', controller.create)
-router.get('/api/users', controller.find)
+router.post('/api/usersignup', controller.create)
+router.post('/api/userlogin', controller.findOne)
 
 
 module.exports = router

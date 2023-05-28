@@ -4,27 +4,31 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import './style.scss'
 import Home from '../Home'
 import { useNavigate } from 'react-router-dom'
-
+import Axios from 'axios'
 
 
 const Login = () => {
   let navigate = useNavigate();
-  const intialValues = { email: "", password: "" };
+  const initialValues = { email: "", password: "" };
 
-  const [formValues, setFormValues] = useState(intialValues);
+  const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submit = () => {
     console.log(formValues);
 
-    // Axios.post("http://localhost:5000/api/customers", formValues).then(() => {
-    //     alert('Customer Added Successfully!');
-    //     props.onHide(true)
-    //     navigate('/admin/customer')
-    // }).catch(() => {
-    //     alert('Something Went Wrong!');
-    // })
+    Axios.post("http://localhost:5000/api/userlogin", formValues).then((res) => {
+      if (res.data === "exist") {
+        navigate("/")
+      }
+      else if (res.data === "Fail") {
+        alert("User have not sign up")
+      }
+      navigate('/')
+    }).catch(() => {
+      alert('Something Went Wrong!');
+    })
 
   };
 
@@ -60,7 +64,7 @@ const Login = () => {
 
     if (!values.password) {
       errors.password = "Password cannot be blank";
-    } else if (!((values.password).length >=8 && (values.password).length <= 20)) {
+    } else if (!((values.password).length >= 8 && (values.password).length <= 20)) {
       errors.password = "Password must be of 8 - 20 characters";
     } else if (!passwordRegex.test(values.contact)) {
       errors.email = "Invalid Password format";
